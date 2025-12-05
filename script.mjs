@@ -181,8 +181,8 @@ function calculate_stats (/** @type {trades} */ trades) {
 			average_loss,
 			reward_risk,
 			expectancy,
-			pnl,
 			average_pnl,
+			pnl,
 		}
 	}
 
@@ -220,11 +220,11 @@ function update_table (/** @type {HTMLElement} */ table, /** @type {stats} */ st
 		let expectancy_cell = row.insertCell()
 		expectancy_cell.innerHTML = f(stats[user].expectancy)
 
-		let pnl_cell = row.insertCell()
-		pnl_cell.innerHTML = c(stats[user].pnl)
-
 		let average_pnl_cell = row.insertCell()
 		average_pnl_cell.innerHTML = c(stats[user].average_pnl)
+
+		let pnl_cell = row.insertCell()
+		pnl_cell.innerHTML = c(stats[user].pnl)
 	}
 }
 
@@ -232,7 +232,7 @@ async function create_grid (/** @type {HTMLElement} */ element, /** @type {stats
 	// @ts-ignore
 	let gridjs = await import('https://unpkg.com/gridjs?module')
 	new gridjs.Grid({
-		columns: ['user', '#', 'win rate', 'average profit', 'average_loss', 'r', 'expectancy', 'pnl per contract', 'average pnl'],
+		columns: ['user', '#', 'win rate', 'average profit', 'average_loss', 'r', 'expectancy', 'average pnl', 'total pnl'],
 		data: Object.entries(stats).map(([user, stat]) => [
 			user,
 			n(stat.number_of_trades),
@@ -241,8 +241,8 @@ async function create_grid (/** @type {HTMLElement} */ element, /** @type {stats
 			c(stat.average_loss),
 			f(stat.reward_risk),
 			f(stat.expectancy),
-			c(stat.pnl),
 			c(stat.average_pnl),
+			c(stat.pnl),
 		]),
 		sort: true,
 	}).render(element)
@@ -311,8 +311,8 @@ function p (percent = 0.0) {
  * 		average_loss: number,
  * 		reward_risk: number,
  * 		expectancy: number,
- * 		pnl: number,
  * 		average_pnl: number,
+ * 		pnl: number,
  * 	}
  * }} stats
  */
