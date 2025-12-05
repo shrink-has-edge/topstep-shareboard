@@ -232,17 +232,27 @@ async function create_grid (/** @type {HTMLElement} */ element, /** @type {stats
 	// @ts-ignore
 	let gridjs = await import('https://unpkg.com/gridjs?module')
 	new gridjs.Grid({
-		columns: ['user', '#', 'win rate', 'average profit', 'average_loss', 'r', 'expectancy', 'average pnl', 'total pnl'],
+		columns: [
+			{name: 'user'},
+			{name: '#'},
+			{name: 'win rate', formatter:  p},
+			{name: 'average profit', formatter:  c},
+			{name: 'average_loss', formatter:  c},
+			{name: 'r', formatter:  f},
+			{name: 'expectancy', formatter:  f},
+			{name: 'average pnl', formatter:  c},
+			{name: 'total pnl', formatter:  c},
+		],
 		data: Object.entries(stats).map(([user, stat]) => [
 			user,
-			n(stat.number_of_trades),
-			p(stat.win_rate),
-			c(stat.average_profit),
-			c(stat.average_loss),
-			f(stat.reward_risk),
-			f(stat.expectancy),
-			c(stat.average_pnl),
-			c(stat.pnl),
+			stat.number_of_trades,
+			stat.win_rate,
+			stat.average_profit,
+			stat.average_loss,
+			stat.reward_risk,
+			stat.expectancy,
+			stat.average_pnl,
+			stat.pnl,
 		]),
 		sort: true,
 	}).render(element)
@@ -253,19 +263,19 @@ function div (numerator = 0, denominator = 0) {
 }
 
 function c (currency = 0.00) {
-	return '$' + currency.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+	return '$' + currency.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 }
 
 function f (float = 0.0) {
-	return float.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+	return float.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
 }
 
 function n (number = 0) {
-	return number.toLocaleString(undefined, {maximumFractionDigits: 0})
+	return number.toLocaleString('en-US', {maximumFractionDigits: 0})
 }
 
 function p (percent = 0.0) {
-	return (percent * 100).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '%'
+	return (percent * 100).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '%'
 }
 
 /**
