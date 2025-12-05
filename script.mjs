@@ -164,6 +164,7 @@ function calculate_stats (/** @type {trades} */ trades) {
 			}
 		}
 
+		let number_of_trades = trades[user].length
 		let total = won + lost
 		let win_rate = div(won, total)
 		let average_profit = div(profit, won)
@@ -174,6 +175,7 @@ function calculate_stats (/** @type {trades} */ trades) {
 		let average_pnl = div(pnl, total)
 
 		stats[user] = {
+			number_of_trades,
 			win_rate,
 			average_profit,
 			average_loss,
@@ -199,6 +201,9 @@ function update_table (/** @type {HTMLElement} */ table, /** @type {stats} */ st
 
 		let user_cell = row.insertCell()
 		user_cell.innerHTML = user
+
+		let number_of_trades_cell = row.insertCell()
+		number_of_trades_cell.innerHTML = p(stats[user].number_of_trades)
 
 		let win_rate_cell = row.insertCell()
 		win_rate_cell.innerHTML = p(stats[user].win_rate)
@@ -227,9 +232,10 @@ async function create_grid (/** @type {HTMLElement} */ element, /** @type {stats
 	// @ts-ignore
 	let gridjs = await import('https://unpkg.com/gridjs?module')
 	new gridjs.Grid({
-		columns: ['user', 'win rate', 'average profit', 'average_loss', 'r', 'expectancy', 'pnl per contract', 'average pnl'],
+		columns: ['user', '#', 'win rate', 'average profit', 'average_loss', 'r', 'expectancy', 'pnl per contract', 'average pnl'],
 		data: Object.entries(stats).map(([user, stat]) => [
 			user,
+			n(stat.number_of_trades),
 			p(stat.win_rate),
 			c(stat.average_profit),
 			c(stat.average_loss),
@@ -299,6 +305,7 @@ function p (percent = 0.0) {
 /**
  * @typedef {{
  * 	[user: string]: {
+ * 		number_of_trades: number,
  * 		win_rate: number,
  * 		average_profit: number,
  * 		average_loss: number,
