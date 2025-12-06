@@ -323,7 +323,7 @@ function populate_symbols (/** @type {HTMLElement} */ element, /** @type {symbol
 }
 
 async function fetch_quotes (/** @type {string} */ symbol) {
-	let proxy_url = decodeURIComponent('%68%74%74%70%3A%2F%2F%64%65%76%65%6C%2E%73%65%61%6E%64%75%6E%61%77%61%79%2E%63%6F%6D%3A%38%38%38%38%2F')
+	let proxy_url = decodeURIComponent('%68%74%74%70%73%3A%2F%2F%64%65%76%65%6C%2E%73%65%61%6E%64%75%6E%61%77%61%79%2E%63%6F%6D%2F%38%38%38%38%2F')
 	let base_url = 'https://query1.finance.yahoo.com/v8/finance/chart/'
 	let interval = '1m'
 	let range = '5d'
