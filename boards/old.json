@@ -1,0 +1,12 @@
+{
+	"name": "old",
+	"allow_practice": true,
+	"allow_combine": true,
+	"allow_xfa": true,
+	"allow_multiple": true,
+	"start_date": "2000-01-01T00:00",
+	"end_date": "2099-12-31T23:59",
+	"shares": {
+		"sasha": [15189102, 15223993, 15240027, 12697304]
+	}
+}

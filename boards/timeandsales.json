@@ -1,6 +1,6 @@
 {
-	"name": "meagabucks",
-	"allow_practice": false,
+	"name": "timeandsales",
+	"allow_practice": true,
 	"allow_combine": true,
 	"allow_xfa": true,
 	"allow_multiple": true,
@@ -9,11 +9,9 @@
 	"shares": {
 		"brad": [13310395],
 		"condro": [15312396],
-		"flame hyped": [15183848],
+		"flame": [15183848],
 		"ledge": [15212711],
 		"sasha": [15284047],
-		"sasha (old)": [15189102, 15223993, 15240027],
-		"sasha (glitch)": [12697304],
 		"sean": [15179340],
 		"shrink": [13928718],
 		"vic": [15322624],
