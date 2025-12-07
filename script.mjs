@@ -236,7 +236,7 @@ async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type 
 	let grid = new gridjs.Grid({
 		columns: [
 			{name: 'user'},
-			{name: 'qty'},
+			{name: 'trades'},
 			{name: 'avg_profit', formatter:  c},
 			{name: 'avg_loss', formatter:  c},
 			{name: 'win_rate', formatter:  p},
