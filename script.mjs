@@ -293,7 +293,7 @@ async function create_trades_grid (/** @type {HTMLElement} */ element, /** @type
 		columns: [
 			{name: 'user'},
 			{name: 'symbol'},
-			{name: 'position', formatter: n},
+			{name: 'pos', formatter: n},
 			{name: 'start', formatter: d},
 			{name: 'end', formatter: d},
 			{name: 'entry', formatter: f},
