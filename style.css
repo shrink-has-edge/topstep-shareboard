@@ -1,15 +1,21 @@
+* {
+	box-sizing: border-box;
+}
+
 body {
 	font-family: monospace;
-	font-size: 1.0rem;
+	font-size: 1rem;
+	margin: 0;
+	overflow-x: hidden;
+	padding: 0 2rem;
+}
 
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-
-	margin: 0 4rem;
+h1 {
+	text-align: center;
 }
 
 section {
+	overflow-x: auto;
 	margin-bottom: 4rem;
 }
 
@@ -17,32 +23,33 @@ button,
 input,
 select {
 	font-size: 1rem;
-	min-width: 8rem;
+	margin: 1rem 0;
+	width: 20ch;
 	text-transform: lowercase;
+}
+
+table {
+	width: 100%;
 }
 
 th {
 	cursor: pointer;
 	background-color: lightgray;
-	padding: 0.5rem;
+	padding: 0.5rem 0;
 }
 
 th button {
 	display: none;
 }
 
-td {
-	overflow: hidden;
-	padding: 0 0.5rem;
-	white-space: nowrap;
-}
-
 #chart {
 	height: 80vh;
+	overflow: hidden;
 }
 
 footer {
 	margin: 4rem 0;
+	text-align: center;
 }
 
 q {
