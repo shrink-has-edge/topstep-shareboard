@@ -226,6 +226,12 @@ async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type 
 		])
 	}
 
+	data.sort(function (a, b) {
+		let a_edge = /** @type {number} */ (a[6])
+		let b_edge = /** @type {number} */ (b[6])
+		return b_edge - a_edge
+	})
+
 	// @ts-ignore
 	let grid = new gridjs.Grid({
 		columns: [
@@ -272,6 +278,12 @@ async function create_trades_grid (/** @type {HTMLElement} */ element, /** @type
 			])
 		}
 	}
+
+	data.sort(function (a, b) {
+		let a_start_date = /** @type {Date} */ (a[2])
+		let b_start_date = /** @type {Date} */ (b[2])
+		return b_start_date.getTime() - a_start_date.getTime()
+	})
 
 	// @ts-ignore
 	let grid = new gridjs.Grid({
