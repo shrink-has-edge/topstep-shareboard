@@ -130,12 +130,14 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 				if (end_date > board.end_date)
 					continue
 
+				let position = -response_trade.positionSize
 				let pnl = response_trade.pnL - response_trade.fees
 
 				let last_trade = trades[user].at(-1)
 
 				if (last_trade && symbol == last_trade.symbol && start_date <= last_trade.end_date) {
 					let count = last_trade.count
+					last_trade.position += position
 					last_trade.start_date = last_trade.start_date < start_date ? last_trade.start_date : start_date;
 					last_trade.end_date = last_trade.end_date > end_date ? last_trade.end_date : end_date
 					last_trade.entry_price = (last_trade.entry_price * count + response_trade.entryPrice) / (count + 1)
@@ -148,6 +150,7 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 
 				let trade = {
 					symbol: symbol,
+					position: position,
 					start_date: start_date,
 					end_date: end_date,
 					entry_price: response_trade.entryPrice,
@@ -269,19 +272,19 @@ async function create_trades_grid (/** @type {HTMLElement} */ element, /** @type
 			data.push([
 				user,
 				trade.symbol,
+				trade.position,
 				trade.start_date,
 				trade.end_date,
 				trade.entry_price,
 				trade.exit_price,
 				trade.pnl,
-				trade.count,
 			])
 		}
 	}
 
 	data.sort(function (a, b) {
-		let a_start_date = /** @type {Date} */ (a[2])
-		let b_start_date = /** @type {Date} */ (b[2])
+		let a_start_date = /** @type {Date} */ (a[3])
+		let b_start_date = /** @type {Date} */ (b[3])
 		return b_start_date.getTime() - a_start_date.getTime()
 	})
 
@@ -290,12 +293,12 @@ async function create_trades_grid (/** @type {HTMLElement} */ element, /** @type
 		columns: [
 			{name: 'user'},
 			{name: 'symbol'},
+			{name: 'position', formatter: n},
 			{name: 'start', formatter: d},
 			{name: 'end', formatter: d},
 			{name: 'entry', formatter: f},
 			{name: 'exit', formatter: f},
 			{name: 'pnl', formatter: c},
-			{name: '#', formatter: n},
 		],
 		data: data,
 		fixedHeader: true,
@@ -567,6 +570,7 @@ function p (percent = 0.00) {
  * @typedef {{
  * 	[user: string]: {
  * 		symbol: string,
+ * 		position: number,
  * 		start_date: Date,
  * 		end_date: Date,
  * 		entry_price: number,
