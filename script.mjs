@@ -22,11 +22,17 @@ let stats_grid = create_stats_grid(elements.stats, stats)
 let trades_grid = create_trades_grid(elements.trades, trades)
 
 let symbols = populate_symbols(elements.symbol, symbol_map)
+if (localStorage.symbol)
+	symbols.value = localStorage.symbol
+
 let quotes = await fetch_quotes(symbols.value)
 let chart = create_chart(elements.chart, quotes, trades, symbols.value)
 
 symbols.addEventListener('change', async function (event) {
+	localStorage.symbol = symbols.value
+
 	quotes = await fetch_quotes(symbols.value)
+
 	chart.dispose()
 	chart = create_chart(elements.chart, quotes, trades, symbols.value)
 })
