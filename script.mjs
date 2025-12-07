@@ -240,6 +240,7 @@ async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type 
 			{name: 'balance', formatter:  c},
 		],
 		data: data,
+		fixedHeader: true,
 		pagination: {
 			buttonsCount: 0,
 			limit: 25,
@@ -285,6 +286,7 @@ async function create_trades_grid (/** @type {HTMLElement} */ element, /** @type
 			{name: '#', formatter: n},
 		],
 		data: data,
+		fixedHeader: true,
 		pagination: {
 			buttonsCount: 0,
 			limit: 25,
