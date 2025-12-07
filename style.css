@@ -47,6 +47,13 @@ th button {
 	overflow: hidden;
 }
 
+nav {
+	opacity: 0.5;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
 footer {
 	margin: 4rem 0;
 	text-align: center;
