@@ -43,7 +43,7 @@ th button {
 }
 
 #chart {
-	height: 80vh;
+	aspect-ratio: 2/1;
 	overflow: hidden;
 }
 
