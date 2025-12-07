@@ -478,7 +478,8 @@ function create_chart (/** @type {HTMLElement} */ element, /** @type {quotes} */
 
 function populate_random_quote (/** @type {HTMLElement} */ element) {
 	let quotes = [
-		['fiat lux', 'let there be light'],
+		['veritas', 'truth'],
+		['in veritate', 'in truth'],
 		['veritas vos liberabit', 'the truth will set you free'],
 		['veritas nunquam perit', 'truth never dies'],
 		['veritas odium parit', 'truth breeds hatred'],
@@ -491,11 +492,6 @@ function populate_random_quote (/** @type {HTMLElement} */ element) {
 		['quid est veritas', 'what is truth'],
 		['falsus in uno, falsus in omnibus', 'false in one thing, false in everything'],
 		['ubi dubium ibi libertas', 'where there is doubt, there is freedom'],
-		['in veritate', 'in truth'],
-		['veritas', 'truth'],
-		['memento mori', 'remember that you must die'],
-		['fortis fortuna adiuvat', 'fortune favors the brave'],
-		['amor fati', 'love of one\'s fate'],
 		['a man may beat a horse race, but he cannot beat horse racing', 'jesse livermore'],
 	]
 
