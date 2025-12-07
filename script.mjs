@@ -94,7 +94,8 @@ async function fetch_board (/** @type {string} */ board_filename) {
 }
 
 async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} */ symbol_map) {
-	let url = 'https://userapi.topstepx.com/Trade/range'
+	const topstepUrl = 'https://userapi.topstepx.com/Trade/range'
+	const tradifyUrl = 'https://userapi.tradeify.projectx.com/Trade/range'
 
 	/** @type {trades} */
 	let trades = {}
@@ -106,12 +107,18 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 		let shares = board.shares[user]
 
 		for (let share_id of shares) {
+			let url = topstepUrl
+			if ((share_id + '').startsWith('tradeify_')) {
+				url = tradifyUrl
+				share_id = share_id.replace('tradeify_', '');
+			}
+
 			let payload = {
 				tradingAccountId: share_id,
 				start: board.start_date.toISOString(),
 				end: board.end_date.toISOString(),
 			}
-
+			
 			let response_array
 			try {
 				let response = await fetch(url, {method: 'post', headers: {'content-type': 'application/json'}, body: JSON.stringify(payload)})
