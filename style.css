@@ -46,6 +46,7 @@ footer {
 }
 
 q {
+	cursor: help;
 	font-style: italic;
 	quotes: none;
 }

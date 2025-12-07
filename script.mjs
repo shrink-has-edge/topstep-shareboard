@@ -33,8 +33,10 @@ symbols.addEventListener('change', async function (event) {
 
 window.addEventListener('resize', function () {chart.resize()})
 
+populate_random_quote(elements.quote)
+
 function get_elements () {
-	let ids = ['stats', 'symbol', 'chart', 'trades']
+	let ids = ['stats', 'symbol', 'chart', 'trades', 'quote']
 
 	/** @type {{[id: string]: HTMLElement}} */
 	let elements = {}
@@ -472,6 +474,40 @@ function create_chart (/** @type {HTMLElement} */ element, /** @type {quotes} */
 	chart_dom.addEventListener('dblclick', function () {chart.dispatchAction({type: 'dataZoom', startValue: default_zoom_start, endValue: max_timestamp})})
 
 	return chart
+}
+
+function populate_random_quote (/** @type {HTMLElement} */ element) {
+	let quotes = [
+		['fiat lux', 'let there be light'],
+		['veritas vos liberabit', 'the truth will set you free'],
+		['veritas nunquam perit', 'truth never dies'],
+		['veritas odium parit', 'truth breeds hatred'],
+		['veritas numquam latet', 'truth never lies hidden'],
+		['magna est veritas et praevalebit', 'great is the truth, and it will prevail'],
+		['res ipsa loquitur', 'the thing speaks for itself'],
+		['ad augusta per angusta', 'to high places through narrow ways'],
+		['acta, non verba', 'actions, not words'],
+		['esse quam videri', 'to be rather than to seem'],
+		['quid est veritas', 'what is truth'],
+		['falsus in uno, falsus in omnibus', 'false in one thing, false in everything'],
+		['ubi dubium ibi libertas', 'where there is doubt, there is freedom'],
+		['in veritate', 'in truth'],
+		['veritas', 'truth'],
+		['memento mori', 'remember that you must die'],
+		['fortis fortuna adiuvat', 'fortune favors the brave'],
+		['amor fati', 'love of one\'s fate'],
+		['a man may beat a horse race, but he cannot beat horse racing', 'jesse livermore'],
+	]
+
+	let min = 0
+	let max = quotes.length - 1
+	let random_index = Math.floor(Math.random() * (max - min + 1) + min)
+	let random_quote = quotes[random_index]
+
+	element.textContent = random_quote[0]
+	element.title = random_quote[1]
+
+	return random_quote
 }
 
 function div (numerator = 0, denominator = 0) {
