@@ -433,7 +433,7 @@ function create_chart (/** @type {HTMLElement} */ element, /** @type {quotes} */
 
 			let target
 
-			if (trade.entry_price >= trade.exit_price)
+			if (trade.pnl >= 0)
 				target = winning_data
 			else
 				target = losing_data
