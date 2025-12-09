@@ -18,7 +18,7 @@ let symbol_map = {
 let trades = await fetch_trades(board, symbol_map)
 let stats = calculate_stats(trades)
 
-let stats_grid = create_stats_grid(elements.stats, stats)
+let stats_grid = create_stats_grid(elements.stats, stats, board)
 let trades_grid = create_trades_grid(elements.trades, trades)
 
 let symbols = populate_symbols(elements.symbol, symbol_map)
@@ -113,12 +113,21 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 				share_id = share_id.replace('tradeify_', '');
 			}
 
+			if (share_id.endsWith('_combine'))
+			{
+				share_id = share_id.replace('_combine', '');
+			}
+			else if (share_id.endsWith('_xfa'))
+			{
+				share_id = share_id.replace('_xfa', '');
+			}
+
 			let payload = {
 				tradingAccountId: share_id,
 				start: board.start_date.toISOString(),
 				end: board.end_date.toISOString(),
 			}
-			
+
 			let response_array
 			try {
 				let response = await fetch(url, {method: 'post', headers: {'content-type': 'application/json'}, body: JSON.stringify(payload)})
@@ -224,11 +233,12 @@ function calculate_stats (/** @type {trades} */ trades) {
 	return stats
 }
 
-async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type {stats} */ stats) {
+async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type {stats} */ stats, /** @type {board} */ board) {
 	let data = []
 
 	for (let user in stats) {
 		let stat = stats[user]
+		let share = board.shares[user][0]
 		data.push([
 			user,
 			stat.qty,
@@ -239,6 +249,9 @@ async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type 
 			stat.edge,
 			stat.pnl_per_trade,
 			stat.balance,
+			(share.endsWith('_combine') ? 'Combine' : (
+				share.endsWith('_xfa') ? 'XFA' : '???'
+			))
 		])
 	}
 
@@ -260,6 +273,7 @@ async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type 
 			{name: 'edge', formatter:  f},
 			{name: 'pnl / trade', formatter:  c},
 			{name: 'balance', formatter:  c},
+			{name: 'Account Type'}
 		],
 		data: data,
 		fixedHeader: true,

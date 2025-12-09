@@ -7,13 +7,13 @@
 	"start_date": "2000-01-01T00:00",
 	"end_date": "2099-12-31T23:59",
 	"shares": {
-		"brad": [13310395],
-		"condro": [15312396],
-		"flame": [15183848],
-		"hush": [15315450],
-		"ledge": [15338006],
-		"vic": [15322624],
-		"weston": [15316482],
+		"brad": ["13310395_xfa"],
+		"condro": ["15312396_combine"],
+		"flame": ["15183848_xfa"],
+		"hush": ["15315450_combine"],
+		"ledge": ["15338006_xfa"],
+		"vic": ["15322624_combine"],
+		"weston": ["15316482_combine"],
 		"three": ["tradeify_61228"]
 	}
 }
