@@ -29,6 +29,12 @@
 				"account_type": "xfa"
 			}
 		],
+		"flame (COIN)": [
+			{
+				"account_id": "9087115",
+				"account_type": "dead combine"
+			}
+		],
 		"ledge": [
 			{
 				"account_id": "15338006",
