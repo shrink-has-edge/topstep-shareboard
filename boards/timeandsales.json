@@ -36,7 +36,8 @@
 		"flame (COIN)": [
 			{
 				"account_id": "9110522",
-				"account_type": "dead combine"
+				"account_type": "dead combine",
+				"start_date": "2025-12-04T00:00"
 			}
 		],
 		"ledge": [

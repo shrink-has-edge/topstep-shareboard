@@ -120,6 +120,10 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 				end: board.end_date.toISOString(),
 			}
 
+			if (share.start_date) {
+				payload.start = new Date(share.start_date).toISOString()
+			}
+
 			let response_array
 			try {
 				let response = await fetch(url, {method: 'post', headers: {'content-type': 'application/json'}, body: JSON.stringify(payload)})
