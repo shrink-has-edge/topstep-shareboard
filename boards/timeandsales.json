@@ -7,15 +7,63 @@
 	"start_date": "2000-01-01T00:00",
 	"end_date": "2099-12-31T23:59",
 	"shares": {
-		"brad": ["13310395_xfa"],
-		"condro": ["15312396_combine"],
-		"flame": ["15183848_xfa"],
-		"hush": ["15315450_combine"],
-		"ledge": ["15338006_xfa"],
-		"vic": ["15322624_combine"],
-		"weston": ["15316482_combine"],
-		"three": ["tradeify_61228"],
-		"goat": ["15343998_combine"],
-		"ictsbarber": ["15289027_combine"]
+		"brad": [
+			{
+				"account_id": "13310395",
+				"account_type": "xfa"
+			}
+		],
+		"condro": [
+			{
+				"account_id": "15312396",
+				"account_type": "combine"
+			},
+			{
+				"account_id": "72890",
+				"platform": "tradeify"
+			}
+		],
+		"flame": [
+			{
+				"account_id": "15183848",
+				"account_type": "xfa"
+			}
+		],
+		"ledge": [
+			{
+				"account_id": "15338006",
+				"account_type": "xfa"
+			}
+		],
+		"vic ICT GOD": [
+			{
+				"account_id": "15322624",
+				"account_type": "combine"
+			}
+		],
+		"weston": [
+			{
+				"account_id": "15316482",
+				"account_type": "combine"
+			}
+		],
+		"three": [
+			{
+				"account_id": "61228",
+				"platform": "tradeify"
+			}
+		],
+		"goat": [
+			{
+				"account_id": "15343998",
+				"account_type": "combine"
+			}
+		],
+		"ictsbarber": [
+			{
+				"account_id": "15289027",
+				"account_type": "combine"
+			}
+		]
 	}
 }

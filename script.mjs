@@ -106,20 +106,12 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 
 		let shares = board.shares[user]
 
-		for (let share_id of shares) {
+		for (let share of shares) {
 			let url = topstepUrl
-			if ((share_id + '').startsWith('tradeify_')) {
-				url = tradifyUrl
-				share_id = share_id.replace('tradeify_', '');
-			}
+			let share_id = share.account_id
 
-			if (share_id.endsWith('_combine'))
-			{
-				share_id = share_id.replace('_combine', '');
-			}
-			else if (share_id.endsWith('_xfa'))
-			{
-				share_id = share_id.replace('_xfa', '');
+			if (share.platform == "tradeify") {
+				url = tradifyUrl
 			}
 
 			let payload = {
@@ -240,7 +232,7 @@ async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type 
 
 	for (let user in stats) {
 		let stat = stats[user]
-		let share = board.shares[user][0]
+		let shares = board.shares[user]
 		data.push([
 			user,
 			stat.qty,
@@ -252,9 +244,7 @@ async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type 
 			stat.pnl_per_trade,
 			stat.balance,
 			stat.maturity_days,
-			(share.endsWith('_combine') ? 'Combine' : (
-				share.endsWith('_xfa') ? 'XFA' : '???'
-			))
+			shares.map(s => s.account_type ?? '???').join(', ')
 		])
 	}
 
