@@ -155,7 +155,7 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 
 			for (let response_trade of response_array) {
 				let symbolMap = symbol_map[response_trade.symbolId]
-				let symbol = symbolMap.mapTo
+				let symbol = symbolMap ? symbolMap.mapTo : response_trade.symbolId
 				if (!symbol) {
 					console.error('symbol:', response_trade.symbolId)
 					symbol = response_trade.symbolId
@@ -169,7 +169,7 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 				if (end_date > board.end_date)
 					continue
 
-				let position = -response_trade.positionSize * (symbolMap.multiplier ?? 1)
+				let position = -response_trade.positionSize * ((symbolMap && symbolMap.multiplier) ?? 1)
 				let pnl = response_trade.pnL - response_trade.fees
 
 				let last_trade = trades[user].at(-1)
@@ -269,7 +269,7 @@ async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type 
 			stat.pnl_per_trade,
 			stat.balance,
 			stat.maturity_days,
-			shares.map(s => s.account_type ?? '???').join(', ')
+			shares.map(s => (s.account_type && s.account_type[0]) ?? '?').join(',')
 		])
 	}
 
@@ -367,7 +367,8 @@ function populate_symbols (/** @type {HTMLElement} */ element, /** @type {symbol
 		throw new Error('populate_symbols')
 
 	for (let key in symbol_map) {
-		let symbol = symbol_map[key].mapTo
+		let symbolMap = symbol_map[key]
+		let symbol = symbolMap ? symbolMap.mapTo : key
 
 		let exists = false
 
