@@ -5,14 +5,34 @@ let board = await fetch_board(board_filename)
 
 /** @type {symbol_map} */
 let symbol_map = {
-	'F.US.EP': 'es',
-	'F.US.MES': 'es',
-	'F.US.ENQ': 'nq',
-	'F.US.MNQ': 'nq',
-	'F.US.GCE': 'gc',
-	'F.US.MGC': 'gc',
-	'F.US.CLE': 'cl',
-	'F.US.MCL': 'cl',
+	'F.US.EP': {
+		'mapTo': 'es'
+	},
+	'F.US.MES': {
+		'mapTo': 'es',
+		'multiplier': 0.1
+	},
+	'F.US.ENQ': {
+		'mapTo': 'nq'
+	},
+	'F.US.MNQ': {
+		'mapTo': 'nq',
+		'multiplier': 0.1
+	},
+	'F.US.GCE': {
+		'mapTo': 'gc'
+	},
+	'F.US.MGC': {
+		'mapTo': 'gc',
+		'multiplier': 0.1
+	},
+	'F.US.CLE': {
+		'mapTo': 'cl'
+	},
+	'F.US.MCL': {
+		'mapTo': 'cl',
+		'multiplier': 0.1
+	}
 }
 
 let trades = await fetch_trades(board, symbol_map)
@@ -134,7 +154,8 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 			}
 
 			for (let response_trade of response_array) {
-				let symbol = symbol_map[response_trade.symbolId]
+				let symbolMap = symbol_map[response_trade.symbolId]
+				let symbol = symbolMap.mapTo
 				if (!symbol) {
 					console.error('symbol:', response_trade.symbolId)
 					symbol = response_trade.symbolId
@@ -148,7 +169,7 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 				if (end_date > board.end_date)
 					continue
 
-				let position = -response_trade.positionSize
+				let position = -response_trade.positionSize * (symbolMap.multiplier ?? 1)
 				let pnl = response_trade.pnL - response_trade.fees
 
 				let last_trade = trades[user].at(-1)
@@ -266,8 +287,8 @@ async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type 
 			{name: 'avg_profit', formatter:  c},
 			{name: 'avg_loss', formatter:  c},
 			{name: 'win_rate', formatter:  p},
-			{name: 'r', formatter:  f},
-			{name: 'edge', formatter:  f},
+			{name: 'r', formatter:  f2},
+			{name: 'edge', formatter:  f2},
 			{name: 'pnl / trade', formatter:  c},
 			{name: 'balance', formatter:  c},
 			{name: 'Age (d)', formatter: n},
@@ -318,11 +339,11 @@ async function create_trades_grid (/** @type {HTMLElement} */ element, /** @type
 		columns: [
 			{name: 'user'},
 			{name: 'symbol'},
-			{name: 'pos', formatter: n},
+			{name: 'pos', formatter: f1},
 			{name: 'start', formatter: d},
 			{name: 'end', formatter: d},
-			{name: 'entry', formatter: f},
-			{name: 'exit', formatter: f},
+			{name: 'entry', formatter: f2},
+			{name: 'exit', formatter: f2},
 			{name: 'pnl', formatter: c},
 		],
 		data: data,
@@ -346,7 +367,7 @@ function populate_symbols (/** @type {HTMLElement} */ element, /** @type {symbol
 		throw new Error('populate_symbols')
 
 	for (let key in symbol_map) {
-		let symbol = symbol_map[key]
+		let symbol = symbol_map[key].mapTo
 
 		let exists = false
 
@@ -560,8 +581,16 @@ function d (date = new Date()) {
 	return date.toLocaleString()
 }
 
-function f (float = 0.00) {
-	return float.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})
+function f (float, precision) {
+	return (float * 1.0).toFixed(precision)
+}
+
+function f1 (float = 0.00) {
+	return f(float, 1)
+}
+
+function f2 (float = 0.00) {
+	return f(float, 2)
 }
 
 function n (number = 0) {
