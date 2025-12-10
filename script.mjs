@@ -174,7 +174,7 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 				let position = -response_trade.positionSize * ((symbolMap && symbolMap.multiplier) ?? 1)
 				let pnl = response_trade.pnL - response_trade.fees
 
-				let last_trade = trades[user].at(-1)
+				let last_trade = trades[user].filter(t => t.symbol == symbol && t.end_date <= end_date).sort((a, b) => b.end_date - a.end_date)[0];
 
 				if (last_trade && symbol == last_trade.symbol && start_date <= last_trade.end_date) {
 					let count = last_trade.count
@@ -321,6 +321,7 @@ async function create_trades_grid (/** @type {HTMLElement} */ element, /** @type
 				user,
 				trade.symbol,
 				trade.position,
+				trade.count,
 				trade.start_date,
 				trade.end_date,
 				trade.entry_price,
@@ -331,8 +332,8 @@ async function create_trades_grid (/** @type {HTMLElement} */ element, /** @type
 	}
 
 	data.sort(function (a, b) {
-		let a_start_date = /** @type {Date} */ (a[3])
-		let b_start_date = /** @type {Date} */ (b[3])
+		let a_start_date = /** @type {Date} */ (a[4])
+		let b_start_date = /** @type {Date} */ (b[4])
 		return b_start_date.getTime() - a_start_date.getTime()
 	})
 
@@ -342,6 +343,7 @@ async function create_trades_grid (/** @type {HTMLElement} */ element, /** @type
 			{name: 'user'},
 			{name: 'symbol'},
 			{name: 'pos', formatter: f1},
+			{name: 'count', formatter: d},
 			{name: 'start', formatter: d},
 			{name: 'end', formatter: d},
 			{name: 'entry', formatter: f2},
