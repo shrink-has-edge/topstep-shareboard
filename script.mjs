@@ -217,6 +217,7 @@ function calculate_stats (/** @type {trades} */ trades) {
 		let edge = qty > 0 ? (win_rate * r) - ((1 - win_rate) * 1) : 0
 		let balance = profit - loss
 		let pnl_per_trade = div(balance, qty)
+		let maturity_days = new Set(trades[user].map(t => `${t.end_date.getFullYear()}-${t.end_date.getMonth()}-${t.end_date.getDate()}`)).size;
 
 		stats[user] = {
 			qty,
@@ -227,6 +228,7 @@ function calculate_stats (/** @type {trades} */ trades) {
 			edge,
 			balance,
 			pnl_per_trade,
+			maturity_days
 		}
 	}
 
@@ -249,6 +251,7 @@ async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type 
 			stat.edge,
 			stat.pnl_per_trade,
 			stat.balance,
+			stat.maturity_days,
 			(share.endsWith('_combine') ? 'Combine' : (
 				share.endsWith('_xfa') ? 'XFA' : '???'
 			))
@@ -273,7 +276,8 @@ async function create_stats_grid (/** @type {HTMLElement} */ element, /** @type 
 			{name: 'edge', formatter:  f},
 			{name: 'pnl / trade', formatter:  c},
 			{name: 'balance', formatter:  c},
-			{name: 'Account Type'}
+			{name: 'Age (d)', formatter: n},
+			{name: 'Type'}
 		],
 		data: data,
 		fixedHeader: true,
