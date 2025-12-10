@@ -115,11 +115,25 @@
 		"shrink": [
 			{
 				"account_id": "13142090",
-				"account_type": "xfa"
+				"account_type": "xfa",
+				"end_date": "2025-12-10T00:00"
 			},
 			{
 				"account_id": "13928718",
-				"account_type": "xfa"
+				"account_type": "xfa",
+				"end_date": "2025-12-10T00:00"
+			}
+		],
+		"the shrink method™️": [
+			{
+				"account_id": "13142090",
+				"account_type": "xfa",
+				"start_date": "2025-12-10T00:00"
+			},
+			{
+				"account_id": "13928718",
+				"account_type": "xfa",
+				"start_date": "2025-12-10T00:00"
 			}
 		]
 	}

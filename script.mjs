@@ -142,6 +142,8 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 
 			if (share.start_date) {
 				payload.start = new Date(share.start_date).toISOString()
+			}if (share.end_date) {
+				payload.end = new Date(share.end_date).toISOString()
 			}
 
 			let response_array
