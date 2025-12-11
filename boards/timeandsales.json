@@ -82,6 +82,10 @@
 			{
 				"account_id": "15289027",
 				"account_type": "combine"
+			},
+			{
+				"account_id": "15535609",
+				"account_type": "xfa"
 			}
 		],
 		"hush": [
