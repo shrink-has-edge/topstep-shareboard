@@ -180,7 +180,7 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 					return b_date - a_date;
 				})[0];
 
-				if (last_trade && symbol == last_trade.symbol && start_date <= last_trade.end_date) {
+				if (false && last_trade && symbol == last_trade.symbol && start_date <= last_trade.end_date) {
 					let count = last_trade.count
 					last_trade.position += position
 					last_trade.start_date = last_trade.start_date < start_date ? last_trade.start_date : start_date;
