@@ -174,7 +174,11 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 				let position = -response_trade.positionSize * ((symbolMap && symbolMap.multiplier) ?? 1)
 				let pnl = response_trade.pnL - response_trade.fees
 
-				let last_trade = trades[user].filter(t => t.symbol == symbol && t.end_date <= end_date).sort((a, b) => b.end_date - a.end_date)[0];
+				let last_trade = trades[user].filter(t => t.account_id == share.account_id && t.symbol == symbol && t.end_date <= end_date).sort((a, b) => {
+					let b_date = /** @type {number} */b.end_date.getTime();
+					let a_date = /** @type {number} */a.end_date.getTime(); 
+					return b_date - a_date;
+				})[0];
 
 				if (last_trade && symbol == last_trade.symbol && start_date <= last_trade.end_date) {
 					let count = last_trade.count
@@ -190,6 +194,7 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 				}
 
 				let trade = {
+					account_id: share.account_id,
 					symbol: symbol,
 					position: position,
 					start_date: start_date,
@@ -615,19 +620,33 @@ function p (percent = 0.00) {
  *	allow_multiple: boolean,
  *	start_date: Date,
  *	end_date: Date,
- *	shares: {[user: string]: number[]},
+ *	shares: {[user: string]: share[]},
  * }} board
+ */
+
+ /**
+ * @typedef {{
+ * 	account_id: number,
+ *  account_type?: string,
+ * 	platform?: string,
+ * 	start_date?: string,
+ * 	end_date?: string
+ * }} share
  */
 
 /**
  * @typedef {{
- * 	[key: string]: string
+ * 	[key: string]: {
+ *  	mapTo: string,
+ *  	multiplier?: number
+ *  }
  * }} symbol_map
  */
 
 /**
  * @typedef {{
  * 	[user: string]: {
+ * 		account_id: number,
  * 		symbol: string,
  * 		position: number,
  * 		start_date: Date,
@@ -651,6 +670,7 @@ function p (percent = 0.00) {
  * 		edge: number,
  * 		pnl_per_trade: number,
  * 		balance: number,
+ * 		maturity_days: number
  * 	}
  * }} stats
  */
