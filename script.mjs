@@ -174,13 +174,9 @@ async function fetch_trades (/** @type {board} */ board, /** @type {symbol_map} 
 				let position = -response_trade.positionSize * ((symbolMap && symbolMap.multiplier) ?? 1)
 				let pnl = response_trade.pnL - response_trade.fees
 
-				let last_trade = trades[user].filter(t => t.account_id == share.account_id && t.symbol == symbol && t.end_date <= end_date).sort((a, b) => {
-					let b_date = /** @type {number} */b.end_date.getTime();
-					let a_date = /** @type {number} */a.end_date.getTime(); 
-					return b_date - a_date;
-				})[0];
+				let last_trade = trades[user].at(-1)
 
-				if (false && last_trade && symbol == last_trade.symbol && start_date <= last_trade.end_date) {
+				if ( last_trade && symbol == last_trade.symbol && start_date <= last_trade.end_date) {
 					let count = last_trade.count
 					last_trade.position += position
 					last_trade.start_date = last_trade.start_date < start_date ? last_trade.start_date : start_date;
