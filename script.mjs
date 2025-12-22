@@ -29,8 +29,12 @@ let symbol_map = {
 	'F.US.CLE': {
 		'mapTo': 'cl'
 	},
-	'F.US.MCL': {
+	'F.US.MCLE': {
 		'mapTo': 'cl',
+		'multiplier': 0.1
+	},
+	'F.US.MBT': {
+		'mapTo': 'bt',
 		'multiplier': 0.1
 	}
 }
