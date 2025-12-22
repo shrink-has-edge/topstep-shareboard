@@ -147,6 +147,12 @@
 				"account_type": "xfa",
 				"start_date": "2025-12-10T00:00"
 			}
+		],
+		"shrink bot": [
+			{
+				"account_id": "15964767",
+				"account_type": "practice"
+			}
 		]
 	}
 }
