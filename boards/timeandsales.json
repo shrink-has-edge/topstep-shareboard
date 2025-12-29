@@ -161,6 +161,12 @@
 				"account_id": "15988098",
 				"account_type": "practice"
 			}
+		],
+		"beans": [
+			{
+				"account_id": "14815104",
+				"account_type": "xfa"
+			}
 		]
 	}
 }
