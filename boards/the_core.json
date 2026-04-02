@@ -12,6 +12,12 @@
 				"account_id": "21125286",
 				"account_type": "xfa"
 			}
+		],
+		"vic": [
+			{
+				"account_id": "21202486",
+				"account_type": "xfa"
+			}
 		]
 	}
 }
